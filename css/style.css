@@ -1,0 +1,276 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+.navbar {
+    background-color: #2c3e50;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.navbar h1 {
+    color: white;
+    margin: 0;
+    font-size: 1.5em;
+}
+
+
+.nav-links {
+    display: flex;
+}
+
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+
+.nav-links a:hover {
+    background-color: #34495e;
+}
+
+
+.main-content {
+    margin-top: 40px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+
+h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="datetime-local"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+
+button:hover {
+    background-color: #2980b9;
+}
+
+
+.message {
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+
+th {
+    background-color: #f2f2f2;
+    font-weight: 600;
+}
+
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+
+.hidden {
+    display: none;
+}
+
+
+.welcome-text {
+    font-size: 1.2em;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+/* Стили для карты библиотек */
+#map-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.search-form {
+    margin-bottom: 20px;
+}
+
+.map-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .map-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+#map {
+    height: 500px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#library-info {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    min-height: 350px;
+}
+
+.placeholder {
+    color: #888;
+    text-align: center;
+    margin-top: 40%;
+    transform: translateY(-50%);
+}
+
+.loading, .error {
+    text-align: center;
+    margin-top: 40%;
+    transform: translateY(-50%);
+}
+
+.error {
+    color: #e53e3e;
+}
+
+#library-info h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #4f46e5;
+}
+
+.info-group {
+    margin-bottom: 15px;
+}
+
+.info-group h3 {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.info-group p {
+    margin: 0;
+}
+
+.book-amount {
+    color: #10b981;
+    font-weight: 500;
+}
+
+.phys-books h4 {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 10px 0 5px;
+}
+
+.phys-book-ids {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.phys-book-id {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: #e0e7ff;
+    color: #4338ca;
+    border-radius: 4px;
+    font-size: 12px;
+}

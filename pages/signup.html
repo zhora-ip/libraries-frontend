@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - Система управления библиотекой</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="container">
+            <h1>Библиотека</h1>
+            <div class="nav-links">
+                <a href="../index.html">Главная</a>
+                <a href="signup.html">Регистрация</a>
+                <a href="signin.html">Вход</a>
+                <a href="history.html" id="history-link" class="hidden">История</a>
+                <a href="#" id="logout-link" class="hidden">Выход</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="main-content">
+            <h2>Регистрация нового пользователя</h2>
+            <div id="message-container"></div>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="login">Логин:</label>
+                    <input type="text" id="login" name="login" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Телефон:</label>
+                    <input type="tel" id="phone" name="phone_number" required>
+                </div>
+                <div class="form-group">
+                    <label for="fullname">Полное имя:</label>
+                    <input type="text" id="fullname" name="full_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Роль (1 - Пользователь, 2 - Администратор):</label>
+                    <input type="number" id="role" name="role" min="1" max="2" value="1" required>
+                </div>
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+</body>
+</html>
