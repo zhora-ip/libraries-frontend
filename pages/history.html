@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>История - Система управления библиотекой</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body>
     <div class="navbar">
         <div class="container">
@@ -20,33 +22,36 @@
         </div>
     </div>
 
-
     <div class="container">
         <div class="main-content">
             <h2>История выдач книг</h2>
             <div id="message-container"></div>
-            <form id="history-form">
+            <form id="history-form" class="filter-form">
                 <div class="form-group">
-                    <label for="cursor">Дата и время (курсор):</label>
-                    <input type="datetime-local" id="cursor" name="cursor" required>
+                    <label for="id-filter">ID Заказа:</label>
+                    <input type="number" id="id-filter" name="id" placeholder="1">
                 </div>
                 <div class="form-group">
-                    <label for="limit">Лимит записей:</label>
-                    <input type="number" id="limit" name="limit" min="1" value="100" required>
+                    <label for="occurrence-id-filter">ID События:</label>
+                    <input type="number" id="occurrence-id-filter" name="occurrence_id" placeholder="1">
                 </div>
                 <div class="form-group">
-                    <label for="backward">Направление:</label>
-                    <select id="backward" name="backward">
-                        <option value="false">Вперед</option>
-                        <option value="true">Назад</option>
-                    </select>
+                    <label for="user-id-filter">ID Пользователя:</label>
+                    <input type="number" id="user-id-filter" name="user_id" placeholder="1">
                 </div>
                 <div class="form-group">
-                    <label for="book-id">ID книги:</label>
-                    <input type="number" id="book-id" name="phys_book_id" min="1" value="1" required>
+                    <label for="library-id-filter">ID Библиотеки:</label>
+                    <input type="number" id="library-id-filter" name="library_id" placeholder="1">
                 </div>
-                <button type="submit">Получить историю</button>
+                <div class="form-group">
+                    <label for="book-id-filter">ID Книги:</label>
+                    <input type="number" id="book-id-filter" name="book_id" placeholder="1">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Поиск</button>
+                </div>
             </form>
+            
             <div id="history-results" class="hidden">
                 <h3>Результаты:</h3>
                 <table id="history-table">
@@ -63,12 +68,16 @@
                     </thead>
                     <tbody></tbody>
                 </table>
+                <div class="pagination">
+                    <button id="backward-button" class="hidden">← Назад</button>
+                    <button id="forward-button" class="hidden">Вперед →</button>
+                </div>
             </div>
         </div>
     </div>
 
-
     <script src="../js/main.js"></script>
     <script src="../js/history.js"></script>
 </body>
+
 </html>

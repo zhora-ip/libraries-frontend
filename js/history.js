@@ -1,78 +1,110 @@
-document.addEventListener('DOMContentLoaded', function() {
-
+document.addEventListener('DOMContentLoaded', function () {
     const historyForm = document.getElementById('history-form');
+    const messageContainer = document.getElementById('message-container');
+
     if (historyForm) {
         const token = localStorage.getItem('token');
+
         if (!token) {
             window.location.href = 'signin.html';
             return;
         }
-        
-        const now = new Date();
-        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-        document.getElementById('cursor').value = now.toISOString().slice(0, 16);
-        
-        initHistoryForm();
-    }
-});
 
+        const historyResults = document.getElementById('history-results');
+        const historyTable = document.getElementById('history-table').getElementsByTagName('tbody')[0];
+        const backwardButton = document.getElementById('backward-button');
+        const forwardButton = document.getElementById('forward-button');
 
-function initHistoryForm() {
-    const form = document.getElementById('history-form');
-    const messageContainer = document.getElementById('message-container');
-    const historyResults = document.getElementById('history-results');
-    const historyTable = document.getElementById('history-table').getElementsByTagName('tbody')[0];
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
+        let firstCursor = null;
+        let lastCursor = null;
+        const limit = 5;
 
-        const cursorDate = new Date(document.getElementById('cursor').value);
-        const formData = {
-            cursor: cursorDate.toISOString(),
-            limit: parseInt(document.getElementById('limit').value),
-            backward: document.getElementById('backward').value === 'true',
-            phys_book_id: parseInt(document.getElementById('book-id').value)
-        };
-        
-        const token = localStorage.getItem('token');
-        if (!token) {
-            showMessage(messageContainer, 'Необходима авторизация. Перенаправление...', true);
-            
-            setTimeout(() => {
-                window.location.href = 'signin.html';
-            }, 2000);
-            return;
-        }
-        
-        fetch(`${API_BASE_URL}/history`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(response => {
-            if (!response.ok) {
-                if (response.status === 401) {
-                    localStorage.removeItem('token');
-                    throw new Error('Сессия истекла. Пожалуйста, войдите снова.');
-                }
-                return response.json().then(data => {
-                    throw new Error(data.error || 'Ошибка получения истории');
-                });
+        backwardButton.addEventListener('click', function () {
+            getHistory(true, firstCursor); 
+        });
+
+        forwardButton.addEventListener('click', function () {
+            getHistory(false, lastCursor); 
+        });
+
+        historyForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            firstCursor = null;
+            lastCursor = null;
+            getHistory(false, null);
+        });
+
+        async function getHistory(backward, cursor) {
+            const token = localStorage.getItem('token');
+
+            if (!token) {
+                showMessage(messageContainer, 'Необходима авторизация. Перенаправление...', true);
+                setTimeout(() => {
+                    window.location.href = 'signin.html';
+                }, 2000);
+                return;
             }
-            return response.json();
-        })
-        .then(data => {
-            showMessage(messageContainer, 'Данные успешно получены');
-            
+            const formData = {
+                cursor: cursor,
+                limit: limit,
+                backward: backward,
+                id: parseInt(document.getElementById('id-filter').value) || null,
+                occurrence_id: parseInt(document.getElementById('occurrence-id-filter').value) || null,
+                user_id: parseInt(document.getElementById('user-id-filter').value) || null,
+                library_id: parseInt(document.getElementById('library-id-filter').value) || null,
+                phys_book_id: parseInt(document.getElementById('book-id-filter').value) || null,
+            };
+
+            Object.keys(formData).forEach(
+                (key) => (formData[key] === null || formData[key] === undefined) && delete formData[key]
+            );
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/history`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer ' + token,
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                if (!response.ok) {
+                    if (response.status === 401) {
+                        localStorage.removeItem('token');
+                        throw new Error('Сессия истекла. Пожалуйста, войдите снова.');
+                    }
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Ошибка получения истории');
+                }
+
+                if (response.status === 204 || response.headers.get('Content-Length') === '0') {
+                    if (backward) {
+                        showMessage('Вы уже на первой странице', true);
+                    } else {
+                        showMessage('Вы уже на последней странице', true);
+                    }
+                    return;
+                }
+
+                const data = await response.json();
+                updateHistory(data);
+            } catch (error) {
+                showMessage(messageContainer, error.message, true);
+            }
+        }
+
+        function updateHistory(data) {
+            showMessage(messageContainer, 'История успешно загружена');
             historyTable.innerHTML = '';
-            
+
             if (data.data && data.data.length > 0) {
-                data.data.forEach(item => {
+                firstCursor = data.first_cursor;
+                lastCursor = data.last_cursor;
+
+                data.data.forEach((item) => {
                     const row = historyTable.insertRow();
-                    
+
                     row.insertCell(0).textContent = item.ID;
                     row.insertCell(1).textContent = item.LibraryID;
                     row.insertCell(2).textContent = item.PhysicalBookID;
@@ -81,21 +113,19 @@ function initHistoryForm() {
                     row.insertCell(5).textContent = formatDate(item.CreatedAt);
                     row.insertCell(6).textContent = formatDate(item.ExpiresAt);
                 });
-                
+
                 historyResults.classList.remove('hidden');
+                backwardButton.classList.remove('hidden');
+                forwardButton.classList.remove('hidden');
             } else {
                 historyTable.innerHTML = '<tr><td colspan="7">Нет данных</td></tr>';
+                backwardButton.classList.add('hidden');
+                forwardButton.classList.add('hidden');
                 historyResults.classList.remove('hidden');
             }
-        })
-        .catch(error => {
-            showMessage(messageContainer, error.message, true);
-            
-            if (error.message.includes('Сессия истекла')) {
-                setTimeout(() => {
-                    window.location.href = 'signin.html';
-                }, 2000);
-            }
-        });
-    });
-}
+        }
+
+        getHistory(false, null);
+    }
+});
+
