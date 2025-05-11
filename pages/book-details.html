@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информация о книге - Система управления библиотекой</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    <div class="navbar">
+        <div class="container">
+            <h1><a href="../index.html">Библиотека</a></h1>
+                <a href="profile.html" id="profile-link" class="hidden">Профиль</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <button class="back-button" onclick="window.location.href='books.html'">Назад к списку книг</button>
+            
+            <div id="message-container"></div>
+            
+            <div id="book-loading">
+                <p>Загрузка информации о книге...</p>
+            </div>            
+            <div id="book-details" class="book-details hidden">
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/book-details.js"></script>
+</body>
+</html>

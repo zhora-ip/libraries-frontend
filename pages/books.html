@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск книг - Система управления библиотекой</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="container">
+            <h1><a href="../index.html">Библиотека</a></h1>
+            <div class="nav-links">
+                <a href="profile.html" id="profile-link" class="hidden">Профиль</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <h2>Поиск книг</h2>
+            <div id="message-container"></div>
+            
+            <form id="books-form">
+                <div class="filters">
+                    <div>
+                        <label for="id-filter">ID книги:</label>
+                        <input type="number" id="id-filter" class="filter-input" placeholder="ID книги">
+                    </div>
+                    <div>
+                        <label for="title-filter">Название:</label>
+                        <input type="text" id="title-filter" class="filter-input" placeholder="Название книги">
+                    </div>
+                    <div>
+                        <label for="author-filter">Автор:</label>
+                        <input type="text" id="author-filter" class="filter-input" placeholder="Автор книги">
+                    </div>
+                    <div>
+                        <label for="genre-filter">Жанр:</label>
+                        <input type="text" id="genre-filter" class="filter-input" placeholder="Жанр книги">
+                    </div>
+                    <div>
+                        <label for="age-limit-filter">Возрастное ограничение:</label>
+                        <input type="number" id="age-limit-filter" class="filter-input" placeholder="Возрастное ограничение">
+                    </div>
+                </div>
+                <button type="submit" class="btn">Найти</button>
+            </form>
+            
+            <div id="books-results" class="hidden">
+                <table id="books-table" class="books-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Название</th>
+                            <th>Автор</th>
+                            <th>Жанр</th>
+                            <th>Возрастное ограничение</th>
+                            <th>Обновлено</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                
+                <div class="pagination">
+                    <button id="backward-button" class="btn hidden">← Назад</button>
+                    <button id="forward-button" class="btn hidden">Вперед →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/books.js"></script>
+</body>
+</html>

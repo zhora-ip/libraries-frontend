@@ -7,9 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const map = L.map('map').setView([55.75, 37.6], 10);
     
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
     const bookSearchForm = document.getElementById('book-search-form');
     const bookIdInput = document.getElementById('book-id');
@@ -135,6 +133,5 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
     }
 
-    // Загрузить данные при инициализации
     fetchLibraryData(bookIdInput.value);
 });

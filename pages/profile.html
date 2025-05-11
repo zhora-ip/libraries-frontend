@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль - Система управления библиотекой</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="container">
+            <h1><a href="../index.html">Библиотека</a></h1>
+            <div class="nav-links">
+                <a href="profile.html" id="profile-link">Профиль</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-content">
+            <h2>Профиль пользователя</h2>
+            <div id="message-container"></div>
+            
+            <div class="profile-container">
+                <div class="profile-header">
+                    <h3>Данные аккаунта</h3>
+                </div>
+                <div class="profile-data" id="profile-data">
+                </div>
+                
+                <div class="profile-actions">
+                    <button id="edit-profile" class="btn-edit">Редактировать профиль</button>
+                    <button id="delete-profile" class="btn-delete">Удалить профиль</button>
+                </div>
+                
+                <div class="profile-edit hidden" id="profile-edit">
+                    <form id="profile-form">
+                        <div class="profile-row">
+                            <label class="profile-label">Логин:</label>
+                            <input type="text" id="login-input" class="profile-input" name="login">
+                        </div>
+                        <div class="profile-row">
+                            <label class="profile-label">Новый пароль:</label>
+                            <input type="password" id="password-input" class="profile-input" name="password" placeholder="Оставьте пустым, если не хотите менять">
+                        </div>
+                        <div class="profile-row">
+                            <label class="profile-label">Полное имя:</label>
+                            <input type="text" id="full-name-input" class="profile-input" name="full_name">
+                        </div>
+                        <div class="profile-row">
+                            <label class="profile-label">Телефон:</label>
+                            <input type="tel" id="phone-input" class="profile-input" name="phone_number">
+                        </div>
+                        <div class="profile-row">
+                            <label class="profile-label">Email:</label>
+                            <input type="email" id="email-input" class="profile-input" name="email">
+                        </div>
+                        
+                        <div class="profile-actions">
+                            <button type="submit" class="btn-save">Сохранить изменения</button>
+                            <button type="button" id="cancel-edit" class="btn-cancel">Отмена</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="delete-modal" class="modal">
+        <div class="modal-content">
+            <h3>Подтверждение удаления</h3>
+            <p>Вы уверены, что хотите удалить свой профиль? Это действие нельзя будет отменить.</p>
+            <div class="modal-actions">
+                <button id="confirm-delete" class="btn-delete">Да, удалить</button>
+                <button id="cancel-delete" class="btn-cancel">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/profile.js"></script>
+</body>
+</html>
